@@ -3,6 +3,8 @@ package com.nestedsoftware.generics;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class RecursiveTypeBoundDemo {
@@ -13,11 +15,19 @@ public class RecursiveTypeBoundDemo {
         System.out.println("maxJavaLangFloat = " + maxJavaLangFloat);
 
         //doesn't work without ? super in ToyCollections
-         List<CustomFloat> customFloats = Arrays.asList(
+         Collection<CustomFloat> customFloats = Arrays.asList(
                 new CustomFloat(-3f),
                 new CustomFloat(2.2f));
         CustomFloat maxCustomFloat = ToyCollections.max(customFloats);
         System.out.println("maxCustomFloat = " + maxCustomFloat);
+
+        //doesn't work without ? super in ToyCollections
+        List<CustomFloat> items = Collections.singletonList(new CustomFloat(-3f));
+        addToCollection(items, new CustomFloat(2.2f));
+    }
+
+    public static <T extends Comparable<? super T>> void addToCollection(Collection<T> items, T newItem) {
+        items.add(newItem);
     }
 }
 
