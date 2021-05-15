@@ -2,10 +2,7 @@ package com.nestedsoftware.generics;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class RecursiveTypeBoundDemo {
     public static void main(String[] args) {
@@ -21,12 +18,21 @@ public class RecursiveTypeBoundDemo {
         CustomFloat maxCustomFloat = ToyCollections.max(customFloats);
         System.out.println("maxCustomFloat = " + maxCustomFloat);
 
-        //doesn't work without ? super in ToyCollections
-        List<CustomFloat> items = Collections.singletonList(new CustomFloat(-3f));
+        List<CustomFloat> items = new ArrayList<>();
+        items.add(new CustomFloat(-3f));
         addToCollection(items, new CustomFloat(2.2f));
+
+        Collection<Object> bagOfItems = new ArrayList<>();
+        bagOfItems.add("23");
+        bagOfItems.add(3.3);
+        addStringToCollection(bagOfItems, "3");
     }
 
     public static <T extends Comparable<? super T>> void addToCollection(Collection<T> items, T newItem) {
+        items.add(newItem);
+    }
+
+    public static void addStringToCollection(Collection<? super String> items, String newItem) {
         items.add(newItem);
     }
 }
