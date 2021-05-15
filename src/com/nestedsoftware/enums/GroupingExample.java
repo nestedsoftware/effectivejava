@@ -83,7 +83,7 @@ enum Transition {
                             groupingBy(
                                     t -> t._to,
                                     () -> new EnumMap<>(Phase.class),
-                                    collectingAndThen(toList(), items -> items.get(0)) //assume no duplicates
+                                    collectingAndThen(toList(), items -> items.get(0))
                                     ))
                             );
 
